@@ -6,6 +6,18 @@ import config from "../../config";
 
 
 
+
+const createUser = catchAsync(async (req, res) => {
+  const result = await AuthServices.createUser(req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User create succesfully',
+    data: result,
+  });
+});
+
+
 const loginUser = catchAsync(async (req, res) => {
   const { accessToken, user, rfreshToken} = await AuthServices.loginUser(req.body);
   const token = `Bearer ${accessToken}`;
@@ -24,25 +36,7 @@ const loginUser = catchAsync(async (req, res) => {
   });
 });
 
-const getCurrentUser = catchAsync(async (req, res) => {
-  const result = await AuthServices.currentUser(req.query.email as string);
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Current user find succesfully',
-    data: result,
-  });
-});
 
-const getAllUsers = catchAsync(async (req, res) => {
-  const result = await AuthServices.getAllllUsers();
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'All Users find succesfully',
-    data: result,
-  });
-});
 
 const refreshToken = catchAsync(async (req, res) => {
   const { refreshToken } = req.cookies;
@@ -58,7 +52,6 @@ const refreshToken = catchAsync(async (req, res) => {
 
 export const AuthControllers = {
   loginUser,
-  getCurrentUser,
-  getAllUsers,
+  createUser,
   refreshToken
 };

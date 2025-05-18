@@ -14,16 +14,11 @@ router.post(
   AuthControllers.loginUser
 );
 
-router.get(
-  "/user",
-  AuthControllers.getCurrentUser
+router.post(
+  "/signup",
+  AuthControllers.createUser
 );
 
-router.get(
-  "/allUser",
-  // auth(USER_ROLE["Super Admin"]),
-  AuthControllers.getAllUsers
-);
 
 router.post(
   '/refresh-token',
