@@ -36,7 +36,10 @@ const loginUser = async (payload: TLoginUser) => {
 
   // checking user status
   if (user.status === "Disabled") {
-    throw new AppError(httpStatus.FORBIDDEN, "Your account is currently disable!");
+    throw new AppError(
+      httpStatus.FORBIDDEN,
+      "Your account is currently disable!"
+    );
   }
 
   //create token and sent to the  client
@@ -63,8 +66,18 @@ const loginUser = async (payload: TLoginUser) => {
     rfreshToken,
     user,
   };
+};
 
+// get all users
+const getAllUsers = async () => {
+  const users = User.find();
+  return users;
+};
 
+// get single users
+const getSingleUser = async (_id:string) => {
+  const user = User.findById({_id});
+  return user;
 };
 
 const refreshToken = async (token: string) => {
@@ -84,7 +97,7 @@ const refreshToken = async (token: string) => {
   const { email } = decoded;
 
   // checking if the user is exist
-  const user = await User.findOne({email:email});
+  const user = await User.findOne({ email: email });
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
@@ -109,4 +122,10 @@ const refreshToken = async (token: string) => {
   return { accessToken: `Bearer ${accessToken}` };
 };
 
-export const AuthServices = { createUser, loginUser, refreshToken };
+export const AuthServices = {
+  createUser,
+  loginUser,
+  getAllUsers,
+  getSingleUser,
+  refreshToken,
+};

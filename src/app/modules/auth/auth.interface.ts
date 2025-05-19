@@ -3,7 +3,7 @@ import { USER_ROLE } from "./auth.constait";
 export type TUser={
   email: string,
   name: string,
-  role: string,
+  role: 'Student' | 'Seacher',
   password: string;
   status: "Active" | "Disabled";
 }

@@ -37,6 +37,26 @@ const loginUser = catchAsync(async (req, res) => {
 });
 
 
+const getAllUser = catchAsync(async(req,res)=>{
+  const result = await AuthServices.getAllUsers()
+  sendResponse(res,{
+    statusCode: httpStatus.OK,
+    success:true,
+    message:"All users get successfully!",
+    data:result
+  })
+})
+
+const getSingleUser = catchAsync(async(req,res)=>{
+  const result = await AuthServices.getSingleUser(req.params.id)
+  sendResponse(res,{
+    statusCode: httpStatus.OK,
+    success:true,
+    message:"User find successfully!",
+    data:result
+  })
+})
+
 
 const refreshToken = catchAsync(async (req, res) => {
   const { refreshToken } = req.cookies;
@@ -53,5 +73,7 @@ const refreshToken = catchAsync(async (req, res) => {
 export const AuthControllers = {
   loginUser,
   createUser,
-  refreshToken
+  refreshToken,
+  getAllUser,
+  getSingleUser
 };

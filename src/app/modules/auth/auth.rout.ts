@@ -19,6 +19,15 @@ router.post(
   AuthControllers.createUser
 );
 
+router.get(
+  "/user",
+  AuthControllers.getAllUser
+)
+
+router.get(
+  "/user/:id",
+  AuthControllers.getSingleUser
+)
 
 router.post(
   '/refresh-token',

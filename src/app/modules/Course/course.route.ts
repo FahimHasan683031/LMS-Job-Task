@@ -1,50 +1,35 @@
 import express from "express";
-import validateRequest from "../../middlewares/validateRequest";
-import { ParcelValidation } from "./course.validation";
-import { ParcelControllers } from "./course.controller";
-import auth from "../../middlewares/auth";
-import { USER_ROLE } from "../auth/auth.constait";
+import { CourseControllers } from "./course.controller";
+
+
 
 const router = express.Router();
-// create parcel
+// create Course
 router.post(
   "/",
-  // auth(USER_ROLE['Super Admin'],USER_ROLE.Merchant),
-  validateRequest(ParcelValidation.CreateParcelValidation),
-  ParcelControllers.createParcel
+  CourseControllers.createCourse
 );
 
-// Get all parcel
+// Get all Course
 router.get(
   "/",
-  // auth("Super Admin","Delivery Man","Merchant"),
-  ParcelControllers.getAllParcels
+  CourseControllers.getAllCourses
 );
 
-// Get single parcel
-router.get("/:TrakingId", ParcelControllers.getSingleParcel);
+// Get single Course
+router.get("/:TrakingId", CourseControllers.getSingleCourse);
 
-// Update parcel
+// Update Course
 router.patch(
   "/:id",
-  // auth("Super Admin","Merchant"),
-  validateRequest(ParcelValidation.UpdateParcelValidation),
-  ParcelControllers.updateleParcel
+  CourseControllers.updateleCourse
 );
 
-// Update parcel status
-router.put(
-  "/:id",
-  // auth("Delivery Man","Super Admin"),
-  validateRequest(ParcelValidation.UpdateParcelValidation),
-  ParcelControllers.updateleParcelStaus
-);
 
-// Delete single parcel
+// Delete single Course
 router.delete(
   "/:id",
-  // auth("Super Admin"),
-  ParcelControllers.deleteSingleParcel
+  CourseControllers.deleteSingleCourse
 );
 
-export const ParcelRoutes = router;
+export const CourseRoutes = router;
