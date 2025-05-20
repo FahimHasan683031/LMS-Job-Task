@@ -1,13 +1,14 @@
 import httpStatus from "http-status";
 import config from "../../config";
-import { TLoginUser, TUser } from "./auth.interface";
 import { createToken, verifyToken } from "./auth.utils";
 import AppError from "../../errors/AppError";
-import { User } from "./auth.model";
 import bcrypt from "bcrypt";
+import { TUser } from "../User/user.interface";
+import { User } from "../User/user.model";
+import { TLogin } from "./auth.interface";
 
 // Create a new user
-const createUser = async (payload: TUser) => {
+const signupUser = async (payload: TUser) => {
   // Check the user is already exist or not
   const user = await User.findOne({ email: payload.email });
   if (user) {
@@ -18,7 +19,7 @@ const createUser = async (payload: TUser) => {
 };
 
 // login user
-const loginUser = async (payload: TLoginUser) => {
+const loginUser = async (payload: TLogin) => {
   // checking if the user is exist
   const user = await User.findOne({ email: payload.email });
   if (!user) {
@@ -68,17 +69,6 @@ const loginUser = async (payload: TLoginUser) => {
   };
 };
 
-// get all users
-const getAllUsers = async () => {
-  const users = User.find();
-  return users;
-};
-
-// get single users
-const getSingleUser = async (_id:string) => {
-  const user = User.findById({_id});
-  return user;
-};
 
 const refreshToken = async (token: string) => {
   // checking if the token is missing
@@ -123,9 +113,7 @@ const refreshToken = async (token: string) => {
 };
 
 export const AuthServices = {
-  createUser,
+  signupUser,
   loginUser,
-  getAllUsers,
-  getSingleUser,
   refreshToken,
 };

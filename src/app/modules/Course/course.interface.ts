@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 
 
 export type TCourse = {
@@ -6,4 +7,7 @@ export type TCourse = {
   subject?: string;
   level?: string;
   teacherId: string;
+  lessons?:Types.ObjectId[],
+  views:number,
+  enrollment:number
 };

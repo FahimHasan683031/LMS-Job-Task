@@ -17,7 +17,7 @@ router.get(
 );
 
 // Get single Course
-router.get("/:TrakingId", CourseControllers.getSingleCourse);
+router.get("/:id", CourseControllers.getSingleCourse);
 
 // Update Course
 router.patch(

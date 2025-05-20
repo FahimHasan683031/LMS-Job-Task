@@ -1,13 +1,11 @@
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { TUser } from "../auth/auth.interface";
+import { TUser } from "../User/user.interface";
 import { CourseServices } from "./course.service";
 
 const createCourse = catchAsync(async (req, res) => {
-  const result = await CourseServices.createCourseInToDB(
-    req.body
-  );
+  const result = await CourseServices.createCourseInToDB(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -27,9 +25,7 @@ const getAllCourses = catchAsync(async (req, res) => {
 });
 
 const getSingleCourse = catchAsync(async (req, res) => {
-  const result = await CourseServices.getSingleCourseFromDB(
-    req.params.id
-  );
+  const result = await CourseServices.getSingleCourseFromDB(req.params.id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
