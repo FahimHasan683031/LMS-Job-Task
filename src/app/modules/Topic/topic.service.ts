@@ -45,6 +45,7 @@ const createTopicInToDB = async (payload: TTopic) => {
 // get all topics
 const getAllTopicFromDB = async (query: Record<string, unknown>) => {
   const TopicQuery = new QueryBuilder(Topic.find(), query)
+    .search(["title"])
     .filter()
     .sort()
     .paginate()

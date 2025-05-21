@@ -33,9 +33,9 @@ const createLessonInToDB = async (payload: TLesson) => {
     // Commit transaction
     await session.commitTransaction();
     return result;
-  } catch (err:any) {
+  } catch (err: any) {
     await session.abortTransaction();
-    throw new AppError(httpStatus.BAD_REQUEST, err.message ||"Operation Faid");
+    throw new AppError(httpStatus.BAD_REQUEST, err.message || "Operation Faid");
   } finally {
     session.endSession();
   }
@@ -44,6 +44,7 @@ const createLessonInToDB = async (payload: TLesson) => {
 // get all lessons
 const getAllLessonFromDB = async (query: Record<string, unknown>) => {
   const LessonQuery = new QueryBuilder(Lesson.find(), query)
+    .search(["title"])
     .filter()
     .sort()
     .paginate()
@@ -95,9 +96,9 @@ const deleteSingleLesson = async (id: string) => {
     // Commit transaction
     await session.commitTransaction();
     return result;
-  } catch (err:any) {
+  } catch (err: any) {
     await session.abortTransaction();
-    throw new AppError(httpStatus.BAD_REQUEST, err.message ||"Operation Faid");
+    throw new AppError(httpStatus.BAD_REQUEST, err.message || "Operation Faid");
   } finally {
     session.endSession();
   }

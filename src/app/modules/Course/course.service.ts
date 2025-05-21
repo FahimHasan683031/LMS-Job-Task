@@ -16,10 +16,10 @@ const createCourseInToDB = async (payload: TCourse) => {
 // Get all coruses
 const getAllCourseFromDB = async (query: Record<string, unknown>) => {
   const courseQuery = new QueryBuilder(Course.find(), query)
+    .search(["title"])
     .filter()
     .sort()
-    .paginate()
-    .fields();
+    .paginate();
 
   const result = await courseQuery.modelQuery;
   return result;
@@ -28,11 +28,7 @@ const getAllCourseFromDB = async (query: Record<string, unknown>) => {
 // Get single cours wiht lessons and topics
 const getSingleCourseFromDB = async (_id: string) => {
   // update views
-  await Course.findByIdAndUpdate(
-    _id,
-    { $inc: { views: 1 } },
-    { new: true } 
-  );
+  await Course.findByIdAndUpdate(_id, { $inc: { views: 1 } }, { new: true });
   // find course
   const course = await Course.findById(_id)
     .populate({
