@@ -105,20 +105,10 @@ cd lms-backend
 | Method | Endpoint             | Description                                | Access Role(s)   |
 | ------ | -------------------- | ------------------------------------------ | ---------------- |
 | POST   | `/api/v1/course`     | Create a new course                        | Teacher          |
-| GET    | `/api/v1/course`     | Get all courses `searchTerm`, | Public           |
+| GET    | `/api/v1/course`     | Get all courses (with filter & pagination) | Public           |
 | GET    | `/api/v1/course/:id` | Get a single course by ID                  | Teacher, Student |
 | PATCH  | `/api/v1/course/:id` | Update a course by ID                      | Teacher          |
 | DELETE | `/api/v1/course/:id` | Delete a course by ID                      | Teacher          |
-
- `fieldName=fieldValue`, `limit`, and `page` query params
-
-| Method | Endpoint             | Description                                                                                          | Access Role(s)   |
-| ------ | -------------------- | ---------------------------------------------------------------------------------------------------- | ---------------- |
-| POST   | `/api/v1/course`     | Create a new course                                                                                  | Teacher          |
-| GET    | `/api/v1/course`     | Get all courses with optional `searchTerm`, `fieldName=fieldValue`, `limit`, and `page` query params | Public           |
-| GET    | `/api/v1/course/:id` | Get a single course by ID                                                                            | Teacher, Student |
-| PATCH  | `/api/v1/course/:id` | Update a course by ID                                                                                | Teacher          |
-| DELETE | `/api/v1/course/:id` | Delete a course by ID                                                                                | Teacher          |
 
 
 ### Lesson API Endpoints
