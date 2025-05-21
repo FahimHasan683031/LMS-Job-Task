@@ -2,7 +2,7 @@ import QueryBuilder from "../../builder/queryBuilder";
 import { TFeedback } from "./feedback.interface";
 import { Feedback } from "./feedback.model";
 
-
+// create Feedback
 const createFeedbackInToDB = async (payload: TFeedback) => {
  const result = await Feedback.create(payload);
  return result;

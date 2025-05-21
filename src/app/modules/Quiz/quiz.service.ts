@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
-import QueryBuilder from "../../builder/queryBuilder";
 import AppError from "../../errors/AppError";
-import { Course } from "../Course/course.model";
 import { TQuiz } from "./quiz.interface";
 import { Quiz } from "./quiz.model";
 import httpStatus from "http-status";
 import { Topic } from "../Topic/topic.model";
 
+// create Quiz
 const createQuizInToDB = async (payload: TQuiz) => {
   // create session
   const session = await mongoose.startSession();
@@ -42,25 +41,34 @@ const createQuizInToDB = async (payload: TQuiz) => {
   }
 };
 
-const getAllQuizFromDB = async (query: Record<string, unknown>) => {
-  const QuizQuery = new QueryBuilder(
-    Quiz.find().populate("topicId"),
-    query
-  )
-    .filter()
-    .sort()
-    .paginate()
-    .fields();
 
-  const result = await QuizQuery.modelQuery;
-  return result;
+// get single quize by topic id
+ const getSingleQuizFromDB = async (id: string) => {
+  try{
+    const quiz = await Quiz.findOne({ _id:id });
+
+    if (!quiz) {
+      throw new AppError(httpStatus.NOT_FOUND, "Quiz not found");
+      };
+   
+
+    // Hide correct answers from student
+    const safeQuiz = {
+      topicId: quiz.topicId,
+      questions: quiz.questions.map(q => ({
+        question: q.question,
+        options: q.options,
+      })),
+    };
+
+    return safeQuiz;
+  }catch(err:any){
+    throw new AppError(httpStatus.NOT_FOUND, err.message);
+  }
 };
 
-const getSingleQuizFromDB = async (_id: string) => {
-  const result = await Quiz.findById({ _id })
-    .populate("topicId");
-  return result;
-};
+
+
 
 // Update Quiz
 const UpdateQuiz = async (id: string, payload: Partial<TQuiz>) => {
@@ -104,7 +112,6 @@ const deleteSingleQuiz = async (id: string) => {
 
 export const QuizServices = {
   createQuizInToDB,
-  getAllQuizFromDB,
   getSingleQuizFromDB,
   UpdateQuiz,
   deleteSingleQuiz,

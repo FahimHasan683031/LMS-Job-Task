@@ -15,15 +15,6 @@ const createQuiz = catchAsync(async (req, res) => {
   });
 });
 
-const getAllQuizs = catchAsync(async (req, res) => {
-  const result = await QuizServices.getAllQuizFromDB(req.query);
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "All Quiz get succesfully",
-    data: result,
-  });
-});
 
 const getSingleQuiz = catchAsync(async (req, res) => {
   const result = await QuizServices.getSingleQuizFromDB(
@@ -59,7 +50,6 @@ const deleteSingleQuiz = catchAsync(async (req, res) => {
 
 export const QuizControllers = {
   createQuiz,
-  getAllQuizs,
   getSingleQuiz,
   updateleQuiz,
   deleteSingleQuiz,

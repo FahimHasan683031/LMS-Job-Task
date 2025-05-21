@@ -5,7 +5,7 @@ import { Progress } from "./progress.model";
 
 const getAllProgressFromDB = async (query: Record<string, unknown>) => {
   const ProgressQuery = new QueryBuilder(
-    Progress.find().populate("topicId"),
+    Progress.find(),
     query
   )
     .filter()
@@ -18,7 +18,7 @@ const getAllProgressFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleProgressFromDB = async (_id: string) => {
-  const result = await Progress.findById({ _id }).populate("topicId");
+  const result = await Progress.findById({ _id });
   return result;
 };
 

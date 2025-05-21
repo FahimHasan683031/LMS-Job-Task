@@ -45,7 +45,7 @@ const createEnrollmentInToDB = async (payload: TEnrollment) => {
     const progressId = progress[0]._id;
 
     // update enrollement
-    await Enrollment.findByIdAndUpdate(
+    const updatedEnrolement = await Enrollment.findByIdAndUpdate(
       enrollmentId,
       { progress: progressId },
       { new: true, session }
@@ -53,7 +53,7 @@ const createEnrollmentInToDB = async (payload: TEnrollment) => {
 
     // Commit transaction
     await session.commitTransaction();
-    return result;
+    return updatedEnrolement;
   } catch (err: any) {
     await session.abortTransaction();
     throw new AppError(httpStatus.BAD_REQUEST, err.message || "Operation Faid");

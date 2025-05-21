@@ -12,12 +12,6 @@ router.post(
   QuizControllers.createQuiz
 );
 
-// Get all Quiz
-router.get(
-  "/",
-  auth("Teacher","Student"),
-  QuizControllers.getAllQuizs
-);
 
 // Get single Quiz
 router.get("/:id",
