@@ -1,5 +1,6 @@
 import express from "express";
 import { EnrollmentControllers } from "./enrollment.controller";
+import auth from "../../middlewares/auth";
 
 
 
@@ -7,6 +8,7 @@ const router = express.Router();
 // create Enrollment
 router.post(
   "/",
+  auth("Student"),
   EnrollmentControllers.createEnrollment
 );
 
