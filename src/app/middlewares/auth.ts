@@ -4,8 +4,8 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import config from "../config";
 import AppError from "../errors/AppError";
 import catchAsync from "../utils/catchAsync";
-import { AuthServices } from "../modules/User/user.service";
 import { TUserRole } from "../modules/User/user.interface";
+import { User } from "../modules/User/user.model";
 
 const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -24,19 +24,15 @@ const auth = (...requiredRoles: TUserRole[]) => {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized!");
     }
 
-    const { role, email, name, phone } = decoded;
+    const { role, email, name } = decoded;
 
     // checking if the user is exist
-    const user = await AuthServices.currentUser(email);
+    const user = await User.findOne({email});
 
     if (!user) {
       throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
     }
 
-    // checking if the user is panding
-    if (user?.status === "Pending") {
-      throw new AppError(httpStatus.FORBIDDEN, "This user is Panding ! !");
-    }
 
     // checking if the user is Disabled
     if (user?.status === "Disabled") {
@@ -50,7 +46,6 @@ const auth = (...requiredRoles: TUserRole[]) => {
     req.user = {
       email,
       name,
-      phone,
       role,
     };
     next();

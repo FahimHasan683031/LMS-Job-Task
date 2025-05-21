@@ -5,6 +5,7 @@ import { TTopic } from "./topic.interface";
 import { Topic } from "./topic.model";
 import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
+import { Quiz } from "../Quiz/quiz.model";
 
 const createTopicInToDB = async (payload: TTopic) => {
   // create session
@@ -33,10 +34,9 @@ const createTopicInToDB = async (payload: TTopic) => {
     // Commit transaction
     await session.commitTransaction();
     return result;
-
-  } catch (err:any) {
+  } catch (err: any) {
     await session.abortTransaction();
-    throw new AppError(httpStatus.BAD_REQUEST, err.message ||"Operation Faid");
+    throw new AppError(httpStatus.BAD_REQUEST, err.message || "Operation Faid");
   } finally {
     session.endSession();
   }
@@ -82,6 +82,9 @@ const deleteSingleTopic = async (id: string) => {
     // delete topic
     const result = await Topic.deleteOne({ _id: id }).session(session);
 
+    // Delete all quiz with this topic
+    await Quiz.deleteMany({ topicId: id }).session(session);
+
     // Remove topic id from the lesson's topics array
     await Lesson.findByIdAndUpdate(
       topic.lessonId,
@@ -93,9 +96,9 @@ const deleteSingleTopic = async (id: string) => {
     await session.commitTransaction();
 
     return result;
-  } catch (err:any) {
+  } catch (err: any) {
     await session.abortTransaction();
-    throw new AppError(httpStatus.BAD_REQUEST, err.message ||"Operation Faid");
+    throw new AppError(httpStatus.BAD_REQUEST, err.message || "Operation Faid");
   } finally {
     session.endSession();
   }

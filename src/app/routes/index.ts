@@ -6,6 +6,10 @@ import { TopicRoutes } from "../modules/Topic/topic.route";
 import { EnrollmentRoutes } from "../modules/Enrollment/enrollment.route";
 import { AuthRoutes } from "../modules/Auth/auth.route";
 import { FeedbackRoutes } from "../modules/Feedback/feedback.route";
+import { FollowRoutes } from "../modules/Follow/follow.route";
+import { LikeRoutes } from "../modules/Like/like.route";
+import { QuizRoutes } from "../modules/Quiz/quiz.route";
+import { ProgressRoutes } from "../modules/Progress/progress.route";
 
 
 const router = Router();
@@ -19,6 +23,10 @@ const moduleRoutes = [
   { path: "/topic", route: TopicRoutes },
   { path: "/enrollment", route: EnrollmentRoutes },
   { path: "/feedback", route: FeedbackRoutes },
+  { path: "/follow", route: FollowRoutes },
+  { path: "/like", route: LikeRoutes },
+  { path: "/like", route: QuizRoutes },
+  { path: "/progress", route: ProgressRoutes },
 ];
 
 // Add each route to the router

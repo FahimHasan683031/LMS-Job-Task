@@ -9,5 +9,6 @@ export type TCourse = {
   teacherId: string;
   lessons?:Types.ObjectId[],
   views:number,
-  enrollment:number
+  enrollment:number,
+  like:number
 };

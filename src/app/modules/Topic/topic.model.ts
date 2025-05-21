@@ -8,7 +8,7 @@ const topicSchema = new Schema<TTopic>(
     lessonId: { type: Schema.Types.ObjectId, ref: 'Lesson', required: true },
     title: { type: String, required: true },
     content: { type: String, required: true },
-    type: { type: String, enum: ['lecture', 'quiz'], required: true },
+    quiz: { type: Schema.Types.ObjectId, ref: 'Quiz', required: false },
   },
   { timestamps: true }
 );

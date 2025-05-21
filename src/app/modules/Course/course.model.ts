@@ -12,7 +12,8 @@ const courseSchema = new Schema<TCourse>(
   teacherId: { type: String, required: true },
   lessons: [{ type:Schema.Types.ObjectId, ref: 'Lesson' }],
   views: { type:Number, default:0, required:true},
-  enrollment: { type:Number, default:0, required:true}
+  enrollment: { type:Number, default:0, required:true},     
+  like: { type:Number, default:0, required:true},     
   },
   {
     timestamps: true,

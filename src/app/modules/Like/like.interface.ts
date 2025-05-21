@@ -1,7 +1,6 @@
 import { Types } from "mongoose";
 
-export type TEnrollment =  {
+export type TLike =  {
   studentId: Types.ObjectId;
   courseId: Types.ObjectId;
-  progress: Types.ObjectId;
 }

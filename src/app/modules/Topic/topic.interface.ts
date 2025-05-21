@@ -4,5 +4,5 @@ export type TTopic ={
   lessonId:Types.ObjectId ;
   title: string;
   content: string;
-  type: 'lecture' | 'quiz';
+  quiz?:Types.ObjectId;
 }
