@@ -39,8 +39,7 @@ const createEnrollmentInToDB = async (payload: TEnrollment) => {
     const pBody: TProgress = {
       enrollmentId: enrollmentId,
       progressPercent: 0,
-      complitedTopics: [],
-      complitedQuizes: [],
+      complitedTopics: []
     };
     const progress = await Progress.create([pBody], { session });
     const progressId = progress[0]._id;
