@@ -77,7 +77,7 @@ cd lms-backend
     npm run dev
 ```
 ```
-🔗 **Live Site:** [lms-phi-five.vercel.app](https://lms-phi-five.vercel.app/)
+
 
 ### Auth
 | Method | Endpoint                | Description   |
